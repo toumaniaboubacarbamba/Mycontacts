@@ -60,7 +60,9 @@
               </button>
             </div>
             <p class="text-slate-900 text-sm !mt-6 text-center">Don't have an account? <a href="javascript:void(0);"
-                class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold">Register here</a></p>
+                class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold">
+                <RouterLink to="/register" class="nav-link">Register Here</RouterLink>
+              </a></p>
           </form>
         </div>
       </div>
