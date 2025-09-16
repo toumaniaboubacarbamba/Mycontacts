@@ -8,22 +8,34 @@
           <RouterLink to="/" class="nav-link">Accueil</RouterLink>
         </li>
         <li>
-          <RouterLink to="/" class="nav-link">Contacts</RouterLink>
+          <RouterLink to="/contacts" class="nav-link">Contacts</RouterLink>
         </li>
         <li>
-          <RouterLink to="/" class="nav-link">Login</RouterLink>
+          <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </li>
         <li>
-          <RouterLink to="/" class="nav-link">Register</RouterLink>
+          <RouterLink to="/register" class="nav-link">Register</RouterLink>
         </li>
         <li>
-          <RouterLink to="/" class="nav-link">Logout</RouterLink>
+          <button @click="logout" class="nav-link">Logout</button>
         </li>
       </ul>
     </div>
   </nav>
 </template>
 
-<script>
+<script setup>
 import { RouterLink, useRouter } from 'vue-router'
+const router = useRouter()
+const logout = () => {
+  router.push({ name: 'Login' })
+}
 </script>
+
+<style scoped>
+.nav-link {
+  color: #050517;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+</style>
