@@ -5,9 +5,12 @@
     <main class="max-w-4xl mx-auto-p6">
       <slot></slot>
     </main>
+
+    <FooterComponent />
   </div>
 </template>
 
 <script setup>
 import NavBarComponent from '../components/NavBarComponent.vue'
+import FooterComponent from '../components/FooterComponent.vue';
 </script>
