@@ -5,19 +5,19 @@
 
       <ul class="flex space-x-6">
         <li>
-          <RouterLink to="/" class="nav-link">Accueil</RouterLink>
+          <RouterLink to="/" class="nav-link hover:underline text-base">Accueil</RouterLink>
         </li>
         <li>
-          <RouterLink to="/contacts" class="nav-link">Contacts</RouterLink>
+          <RouterLink to="/contacts" class="nav-link hover:underline text-base">Contacts</RouterLink>
         </li>
         <li>
-          <RouterLink to="/login" class="nav-link">Login</RouterLink>
+          <RouterLink to="/login" class="nav-link hover:underline text-base">Login</RouterLink>
         </li>
         <li>
-          <RouterLink to="/register" class="nav-link">Register</RouterLink>
+          <RouterLink to="/register" class="nav-link hover:underline text-base">Register</RouterLink>
         </li>
         <li>
-          <button @click="logout" class="nav-link">Logout</button>
+          <button class="nav-link">Logout</button>
         </li>
       </ul>
     </div>
@@ -25,11 +25,15 @@
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
-const logout = () => {
-  router.push({ name: 'Login' })
-}
+const authStore = useAuthStore()
+
+// const logout = () => {
+//   authStore.logout()
+//   router.push('/login')
+// }
 </script>
 
 <style scoped>

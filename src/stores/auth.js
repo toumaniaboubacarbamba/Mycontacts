@@ -1,4 +1,4 @@
-import { axios } from 'axios'
+import { Axios } from 'axios'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post(
+      const response = await Axios.post(
         'https://api-contact.epi-bluelock.bj/api/users/login',
         credentials,
       )
@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('https://api-contact.epi-bluelock.bj/api/users', userData)
+      const response = await Axios.post('https://api-contact.epi-bluelock.bj/api/users', userData)
       return response.data
     } catch (error) {
       throw error.response.data

@@ -8,13 +8,13 @@
 
         <div class="p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm">
           <h1 class="text-slate-900 text-center text-3xl font-semibold">Sign in</h1>
-          <form class="mt-12 space-y-6">
+          <form @submit.prevent="login" class="mt-12 space-y-6">
             <div>
               <label class="text-slate-900 text-sm font-medium mb-2 block">User name</label>
               <div class="relative flex items-center">
-                <input name="username" type="text" required
-                  class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
-                  placeholder="Enter user name" />
+                <input v-model="form.username" name="email" type="email" id="email" required
+                  class="w-full text-slate-900 text-sm border border-slate-500 px-4 py-3 pr-8 rounded-md outline-black"
+                  placeholder="Enter user email" />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-4 h-4 absolute right-4"
                   viewBox="0 0 24 24">
                   <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
@@ -27,8 +27,8 @@
             <div>
               <label class="text-slate-900 text-sm font-medium mb-2 block">Password</label>
               <div class="relative flex items-center">
-                <input name="password" type="password" required
-                  class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+                <input v-model="form.password" name="password" type="password" id="password" required
+                  class="w-full text-slate-900 text-sm border border-slate-500 px-4 py-3 pr-8 rounded-md outline-black"
                   placeholder="Enter password" />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
                   class="w-4 h-4 absolute right-4 cursor-pointer" viewBox="0 0 128 128">
@@ -41,27 +41,27 @@
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center">
                 <input id="remember-me" name="remember-me" type="checkbox"
-                  class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
+                  class="h-4 w-4 shrink-0 text-black focus:ring-black border-slate-500 rounded" />
                 <label for="remember-me" class="ml-3 block text-sm text-slate-900">
                   Remember me
                 </label>
               </div>
               <div class="text-sm">
-                <a href="jajvascript:void(0);" class="text-blue-600 hover:underline font-semibold">
+                <a href="jajvascript:void(0);" class="text-black hover:underline font-semibold">
                   Forgot your password?
                 </a>
               </div>
             </div>
 
             <div class="!mt-12">
-              <button type="button"
-                class="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-[#050517] hover:bg-blue-700 focus:outline-none cursor-pointer">
+              <button type="submit"
+                class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-black bg-[#DADDD8] hover:bg-[#DADDC8] focus:outline-none cursor-pointer">
                 Sign in
               </button>
             </div>
             <p class="text-slate-900 text-sm !mt-6 text-center">Don't have an account? <a href="javascript:void(0);"
                 class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold">
-                <RouterLink to="/register" class="nav-link">Register Here</RouterLink>
+                <RouterLink to="/register" class="nav-link text-black">Register Here</RouterLink>
               </a></p>
           </form>
         </div>
@@ -69,3 +69,26 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useAuthStore } from '@/stores/auth';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const form = ref({
+  email: '',
+  password: '',
+})
+
+const login = async () => {
+  try {
+    await authStore.login(form.value)
+    router.push('/')
+  } catch (error) {
+    error.value = 'Login failed'
+  }
+}
+</script>

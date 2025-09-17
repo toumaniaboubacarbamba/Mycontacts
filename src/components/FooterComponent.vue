@@ -18,11 +18,11 @@
 
       <hr class="my-6 border-gray-500" />
 
-      <p class="text-center text-gray-300 text-base">© ReadymadeUI. All rights reserved.</p>
+      <p class="text-center text-gray-500 text-base">©. All rights reserved.</p>
     </div>
   </footer>
 
 </template>
 <script setup>
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 </script>

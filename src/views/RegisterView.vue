@@ -12,25 +12,25 @@
         <div class="space-y-6">
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Name</label>
-            <input v-model="name" name="name" type="text"
+            <input v-model="form.name" name="name" type="text" id="name"
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter name" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Email</label>
-            <input v-model="email" name="email" type="text"
+            <input v-model="form.email" name="email" type="email" id="email"
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter email" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Password</label>
-            <input v-model="password" name="password" type="password"
+            <input v-model="form.password" name="password" type="password" id="password"
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter password" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Confirm Password</label>
-            <input v-model="cpassword" name="cpassword" type="password"
+            <input v-model="form.cpassword" name="cpassword" type="password" id="password"
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter confirm password" />
           </div>
@@ -61,4 +61,25 @@
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+})
+
+const register = async () => {
+  try{
+    await authStore.register(form.value)
+    router.push('/login')
+  }catch(error){
+    error.value = 'Registeration failed'
+  }
+}
 </script>
