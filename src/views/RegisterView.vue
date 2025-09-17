@@ -8,48 +8,57 @@
         <h1 class="font-bold text-slate-950">Contact Register</h1>
       </div>
 
-      <form>
+      <form @submit.prevent="register">
         <div class="space-y-6">
           <div>
-            <label class="text-slate-900 text-sm font-medium mb-2 block">Email Id</label>
-            <input name="email" type="text"
-              class="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Name</label>
+            <input v-model="name" name="name" type="text"
+              class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+              placeholder="Enter name" />
+          </div>
+          <div>
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Email</label>
+            <input v-model="email" name="email" type="text"
+              class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter email" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Password</label>
-            <input name="password" type="password"
-              class="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            <input v-model="password" name="password" type="password"
+              class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter password" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Confirm Password</label>
-            <input name="cpassword" type="password"
-              class="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            <input v-model="cpassword" name="cpassword" type="password"
+              class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Enter confirm password" />
           </div>
 
           <div class="flex items-center">
             <input id="remember-me" name="remember-me" type="checkbox"
-              class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-            <label for="remember-me" class="text-slate-600 ml-3 block text-sm">
-              I accept the <a href="javascript:void(0);" class="text-blue-600 font-medium hover:underline ml-1">Terms
+              class="h-4 w-4 shrink-0 text-black focus:ring-black border-gray-500 rounded" />
+            <label for="remember-me" class="text-slate-800 ml-3 block text-sm">
+              I accept the <a href="javascript:void(0);" class="text-black font-medium hover:underline ml-1">Terms
                 and Conditions</a>
             </label>
           </div>
         </div>
 
         <div class="mt-12">
-          <button type="button"
-            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-[#050517] hover:bg-[#050210] focus:outline-none cursor-pointer">
+          <button type="submit"
+            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-black bg-[#DADDD8] hover:bg-[#DADDC8] focus:outline-none cursor-pointer">
             Create an account
           </button>
         </div>
-        <p class="text-slate-600 text-sm mt-6 text-center">Already have an account? <a href="javascript:void(0);"
-            class="text-blue-600 font-medium hover:underline ml-1 ">
+        <p class="text-slate-800 text-sm mt-6 text-center">Already have an account? <a href="javascript:void(0);"
+            class="text-black font-medium hover:underline ml-1 ">
             <RouterLink to="/login" class="nav-link">Login Here</RouterLink>
           </a></p>
       </form>
     </div>
   </div>
 </template>
+
+<script setup>
+</script>

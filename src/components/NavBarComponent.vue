@@ -1,6 +1,6 @@
 <template>
   <nav class="bg-[#DADDD8] text-[#050517] shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-3 items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <h1 class="text-xl font-bold">MyContacts</h1>
 
       <ul class="flex space-x-6">
