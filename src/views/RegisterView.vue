@@ -41,7 +41,7 @@
 
         <div class="mt-12">
           <button type="button"
-            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-[#CF5C36] hover:bg-[#CF5C20] focus:outline-none cursor-pointer">
+            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-[#050517] hover:bg-[#050210] focus:outline-none cursor-pointer">
             Create an account
           </button>
         </div>
