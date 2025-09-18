@@ -4,7 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ContactView from '@/views/ContactView.vue'
 import ContactDetails from '@/views/ContactDetails.vue'
-//import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   {
@@ -16,21 +16,25 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginView,
+    meta: { requiresGuest: true }
   },
   {
     path: '/register',
     name: 'Register',
     component: RegisterView,
+    meta: { requiresGuest: true }
   },
   {
     path: '/contacts',
     name: 'Contacts',
     component: ContactView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/contacts/:id',
     name: 'ContactDetails',
     component: ContactDetails,
+    meta: { requiresAuth: true }
   },
 ]
 
@@ -39,16 +43,16 @@ const router = createRouter({
   routes,
 })
 
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
   if (to.meta.requiresAuth && !authStore.isAuth) {
     next('/login')
-  } else if (to.meta.requireGuest && authStore.isAuth) {
+  } else if (to.meta.requiresGuest && authStore.isAuth) {
     next('/')
   } else {
     next()
   }
-}) */
+})
 
 export default router

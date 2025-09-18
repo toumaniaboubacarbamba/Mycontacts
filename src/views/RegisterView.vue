@@ -1,59 +1,59 @@
 <template>
-  <div class="flex flex-col justify-center sm:h-screen p-4">
-    <div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
+  <div class="flex flex-col justify-center min-h-screen p-4 bg-gray-50">
+    <div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8 bg-white">
       <div class="text-center mb-12">
-        <!-- <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo"
-            class="w-40 inline-block" />
-        </a> -->
-        <h1 class="font-bold text-slate-950">Contact Register</h1>
+        <h1 class="font-bold text-slate-950 text-2xl">Inscription</h1>
       </div>
 
       <form @submit.prevent="register">
         <div class="space-y-6">
           <div>
-            <label class="text-slate-900 text-sm font-medium mb-2 block">Name</label>
-            <input v-model="form.name" name="name" type="text" id="name"
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Nom complet</label>
+            <input v-model="form.name" name="name" type="text" id="name" required
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-              placeholder="Enter name" />
+              placeholder="Entrez votre nom" />
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Email</label>
-            <input v-model="form.email" name="email" type="email" id="email"
+            <input v-model="form.email" name="email" type="email" id="email" required
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-              placeholder="Enter email" />
+              placeholder="Entrez votre email" />
           </div>
           <div>
-            <label class="text-slate-900 text-sm font-medium mb-2 block">Password</label>
-            <input v-model="form.password" name="password" type="password" id="password"
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Mot de passe</label>
+            <input v-model="form.password" name="password" type="password" id="password" required
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-              placeholder="Enter password" />
+              placeholder="Entrez votre mot de passe" />
           </div>
           <div>
-            <label class="text-slate-900 text-sm font-medium mb-2 block">Confirm Password</label>
-            <input v-model="form.cpassword" name="cpassword" type="password" id="password"
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Confirmer le mot de passe</label>
+            <input v-model="form.password_confirmation" name="password_confirmation" type="password" id="password_confirmation" required
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-              placeholder="Enter confirm password" />
+              placeholder="Confirmez votre mot de passe" />
+          </div>
+
+          <div v-if="registerError" class="text-red-500 text-sm">
+            {{ registerError }}
           </div>
 
           <div class="flex items-center">
-            <input id="remember-me" name="remember-me" type="checkbox"
+            <input id="terms" name="terms" type="checkbox" required
               class="h-4 w-4 shrink-0 text-black focus:ring-black border-gray-500 rounded" />
-            <label for="remember-me" class="text-slate-800 ml-3 block text-sm">
-              I accept the <a href="javascript:void(0);" class="text-black font-medium hover:underline ml-1">Terms
-                and Conditions</a>
+            <label for="terms" class="text-slate-800 ml-3 block text-sm">
+              J'accepte les <a href="javascript:void(0);" class="text-black font-medium hover:underline ml-1">Conditions d'utilisation</a>
             </label>
           </div>
         </div>
 
         <div class="mt-12">
-          <button type="submit"
-            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-black bg-[#DADDD8] hover:bg-[#DADDC8] focus:outline-none cursor-pointer">
-            Create an account
+          <button type="submit" :disabled="loading"
+            class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-black bg-[#DADDD8] hover:bg-[#DADDC8] focus:outline-none cursor-pointer disabled:opacity-50">
+            {{ loading ? 'Inscription...' : 'Créer un compte' }}
           </button>
         </div>
-        <p class="text-slate-800 text-sm mt-6 text-center">Already have an account? <a href="javascript:void(0);"
+        <p class="text-slate-800 text-sm mt-6 text-center">Vous avez déjà un compte? <a href="javascript:void(0);"
             class="text-black font-medium hover:underline ml-1 ">
-            <RouterLink to="/login" class="nav-link">Login Here</RouterLink>
+            <RouterLink to="/login" class="nav-link">Connectez-vous ici</RouterLink>
           </a></p>
       </form>
     </div>
@@ -72,14 +72,28 @@ const form = ref({
   name: '',
   email: '',
   password: '',
+  password_confirmation: ''
 })
 
+const loading = ref(false)
+const registerError = ref('')
+
 const register = async () => {
-  try{
+  if (form.value.password !== form.value.password_confirmation) {
+    registerError.value = 'Les mots de passe ne correspondent pas'
+    return
+  }
+
+  loading.value = true
+  registerError.value = ''
+
+  try {
     await authStore.register(form.value)
     router.push('/login')
-  }catch(error){
-    error.value = 'Registeration failed'
+  } catch (error) {
+    registerError.value = error.message || "Échec de l'inscription. Veuillez réessayer."
+  } finally {
+    loading.value = false
   }
 }
 </script>

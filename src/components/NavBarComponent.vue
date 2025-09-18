@@ -7,17 +7,18 @@
         <li>
           <RouterLink to="/" class="nav-link hover:underline text-base">Accueil</RouterLink>
         </li>
-        <li>
+        <li v-if="isAuth">
           <RouterLink to="/contacts" class="nav-link hover:underline text-base">Contacts</RouterLink>
         </li>
-        <li>
+        <li v-if="!isAuth">
           <RouterLink to="/login" class="nav-link hover:underline text-base">Login</RouterLink>
         </li>
-        <li>
+        <li v-if="!isAuth">
           <RouterLink to="/register" class="nav-link hover:underline text-base">Register</RouterLink>
         </li>
-        <li>
-          <button class="nav-link">Logout</button>
+        <li v-if="isAuth" class="flex items-center space-x-2">
+          <span>Bonjour, {{ user?.name }}</span>
+          <button @click="logout" class="nav-link">Logout</button>
         </li>
       </ul>
     </div>
@@ -27,13 +28,18 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 import { RouterLink, useRouter } from 'vue-router'
+import { computed } from 'vue'
+
 const router = useRouter()
 const authStore = useAuthStore()
 
-// const logout = () => {
-//   authStore.logout()
-//   router.push('/login')
-// }
+const isAuth = computed(() => authStore.isAuth)
+const user = computed(() => authStore.user)
+
+const logout = () => {
+  authStore.logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>
