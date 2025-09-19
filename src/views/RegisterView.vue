@@ -27,7 +27,7 @@
           </div>
           <div>
             <label class="text-slate-900 text-sm font-medium mb-2 block">Confirmer le mot de passe</label>
-            <input v-model="form.password_confirmation" name="password_confirmation" type="password" id="password_confirmation" required
+            <input v-model="form.confirm_password" name="confirm_password" type="password" id="confirm_password" required
               class="text-slate-900 bg-white border border-gray-500 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
               placeholder="Confirmez votre mot de passe" />
           </div>
@@ -72,14 +72,14 @@ const form = ref({
   name: '',
   email: '',
   password: '',
-  password_confirmation: ''
+  password_confirm: ''
 })
 
 const loading = ref(false)
 const registerError = ref('')
 
 const register = async () => {
-  if (form.value.password !== form.value.password_confirmation) {
+  if (form.value.password !== form.value.password_confirm) {
     registerError.value = 'Les mots de passe ne correspondent pas'
     return
   }

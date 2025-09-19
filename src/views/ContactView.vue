@@ -66,7 +66,6 @@
       </div>
     </div>
 
-    <!-- Modal d'ajout/modification de contact -->
     <div v-if="showAddForm || showEditForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
         <h3 class="text-xl font-semibold mb-4">
@@ -78,7 +77,16 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
               <input
-                v-model="form.name"
+                v-model="form.firstname"
+                type="text"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+              <input
+                v-model="form.lastname"
                 type="text"
                 required
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -110,20 +118,38 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Sélectionner</option>
-                <option value="male">Homme</option>
-                <option value="female">Femme</option>
-                <option value="other">Autre</option>
+                <option value="Male">Homme</option>
+                <option value="Female">Femme</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
-              <textarea
-                v-model="form.address"
-                rows="3"
+              <label class="block text-sm font-medium text-gray-700 mb-1">Birthday</label>
+              <input
+                v-model="form.birthdate"
+                type="date"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
+              />
             </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+              <input
+                v-model="form.position"
+                type="date"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+             <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+              <input
+                v-model="form.company"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
           </div>
 
           <div class="mt-6 flex justify-end space-x-3">
@@ -161,11 +187,15 @@ const showEditForm = ref(false)
 const editingContactId = ref(null)
 
 const form = ref({
-  name: '',
+  firstname: '',
+  lastname: '',
   phone: '',
   email: '',
   gender: '',
-  address: ''
+  address: '',
+  birthdate:'',
+  position:'',
+  company:'',
 })
 
 const loading = computed(() => contactsStore.loading)
@@ -231,7 +261,6 @@ const closeForm = () => {
   }
 }
 
-// Fermer le modal en appuyant sur Échap
 const handleEscape = (e) => {
   if (e.key === 'Escape') {
     closeForm()

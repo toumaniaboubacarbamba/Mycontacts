@@ -22,7 +22,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.get(`${API_BASE}/contacts`, {
+      const response = await axios.get('https://api-contact.epi-bluelock.bj/api/contacts?page=1&perPage=10&order=desc&orderBy=desc', {
         headers: getAuthHeaders()
       })
       contacts.value = response.data.data
