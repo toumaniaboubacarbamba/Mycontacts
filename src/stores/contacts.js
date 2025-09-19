@@ -10,7 +10,6 @@ export const useContactsStore = defineStore('contacts', () => {
   const loading = ref(false)
   const error = ref(null)
 
-  const API_BASE = 'https://api-contact.epi-bluelock.bj/api'
 
   const getAuthHeaders = () => {
     return {
@@ -22,7 +21,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.get(`${API_BASE}/contacts`, {
+      const response = await axios.get('https://api-contact.epi-bluelock.bj/api/contacts', {
         headers: getAuthHeaders()
       })
       contacts.value = response.data.data || response.data
@@ -38,7 +37,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.get(`${API_BASE}/contacts/${id}`, {
+      const response = await axios.get(`https://api-contact.epi-bluelock.bj/api/contacts/${id}`, {
         headers: getAuthHeaders()
       })
       currentContact.value = response.data
@@ -54,7 +53,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.post(`${API_BASE}/contacts`, contactData, {
+      const response = await axios.post(`https://api-contact.epi-bluelock.bj/api/contacts`, contactData, {
         headers: getAuthHeaders()
       })
       contacts.value.push(response.data)
@@ -72,7 +71,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.put(`${API_BASE}/contacts/${id}`, contactData, {
+      const response = await axios.put(`https://api-contact.epi-bluelock.bj/api/contacts/${id}`, contactData, {
         headers: getAuthHeaders()
       })
       const index = contacts.value.findIndex(contact => contact.id === id)
@@ -93,7 +92,7 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      await axios.delete(`${API_BASE}/contacts/${id}`, {
+      await axios.delete(`https://api-contact.epi-bluelock.bj/api/contacts/${id}`, {
         headers: getAuthHeaders()
       })
       contacts.value = contacts.value.filter(contact => contact.id !== id)
