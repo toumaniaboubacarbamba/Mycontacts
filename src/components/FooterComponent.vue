@@ -18,7 +18,7 @@
 
       <hr class="my-6 border-gray-500" />
 
-      <p class="text-center text-gray-500 text-base">© 2023 MyContacts. Tous droits réservés.</p>
+      <p class="text-center text-gray-500 text-base">© 2025 MyContacts. Tous droits réservés.</p>
     </div>
   </footer>
 </template>

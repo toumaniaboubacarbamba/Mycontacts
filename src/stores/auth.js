@@ -13,21 +13,39 @@ export const useAuthStore = defineStore('auth', () => {
         'https://api-contact.epi-bluelock.bj/api/users/login',
         credentials,
       )
-      user.value = response.data.user
-      token.value = response.data.token
+
+      console.log('Login response:', response.data)
+
+      user.value = response.data.user || response.data.data || { name: credentials.email }
+      token.value = response.data.token || response.data.access_token
+
       localStorage.setItem('token', token.value)
       return response.data
     } catch (error) {
-      throw error.response.data
+      console.error('Login error:', error.response?.data)
+      throw error.response?.data || { message: 'Login failed' }
     }
   }
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('https://api-contact.epi-bluelock.bj/api/users', userData)
+      const registrationData = {
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        password_confirmation: userData.password_confirmation
+      }
+
+      const response = await axios.post(
+        'https://api-contact.epi-bluelock.bj/api/users',
+        registrationData
+      )
+
+      console.log('Register response:', response.data)
       return response.data
     } catch (error) {
-      throw error.response.data
+      console.error('Register error:', error.response?.data)
+      throw error.response?.data || { message: 'Registration failed' }
     }
   }
 

@@ -22,12 +22,13 @@ export const useContactsStore = defineStore('contacts', () => {
     loading.value = true
     error.value = null
     try {
-      const response = await axios.get('https://api-contact.epi-bluelock.bj/api/contacts?page=1&perPage=10&order=desc&orderBy=desc', {
+      const response = await axios.get(`${API_BASE}/contacts`, {
         headers: getAuthHeaders()
       })
-      contacts.value = response.data.data
+      contacts.value = response.data.data || response.data
     } catch (err) {
       error.value = err.response?.data?.message || 'Erreur lors de la récupération des contacts'
+      console.error('Fetch contacts error:', err)
     } finally {
       loading.value = false
     }
@@ -43,6 +44,7 @@ export const useContactsStore = defineStore('contacts', () => {
       currentContact.value = response.data
     } catch (err) {
       error.value = err.response?.data?.message || 'Erreur lors de la récupération du contact'
+      console.error('Fetch contact error:', err)
     } finally {
       loading.value = false
     }
@@ -59,6 +61,7 @@ export const useContactsStore = defineStore('contacts', () => {
       return response.data
     } catch (err) {
       error.value = err.response?.data?.message || 'Erreur lors de la création du contact'
+      console.error('Create contact error:', err)
       throw error.value
     } finally {
       loading.value = false
@@ -79,6 +82,7 @@ export const useContactsStore = defineStore('contacts', () => {
       return response.data
     } catch (err) {
       error.value = err.response?.data?.message || 'Erreur lors de la mise à jour du contact'
+      console.error('Update contact error:', err)
       throw error.value
     } finally {
       loading.value = false
@@ -95,6 +99,7 @@ export const useContactsStore = defineStore('contacts', () => {
       contacts.value = contacts.value.filter(contact => contact.id !== id)
     } catch (err) {
       error.value = err.response?.data?.message || 'Erreur lors de la suppression du contact'
+      console.error('Delete contact error:', err)
       throw error.value
     } finally {
       loading.value = false
@@ -104,9 +109,9 @@ export const useContactsStore = defineStore('contacts', () => {
   const searchContacts = (query) => {
     if (!query) return contacts.value
     return contacts.value.filter(contact =>
-      contact.name.toLowerCase().includes(query.toLowerCase()) ||
-      contact.email.toLowerCase().includes(query.toLowerCase()) ||
-      contact.phone.toLowerCase().includes(query.toLowerCase())
+      (contact.name && contact.name.toLowerCase().includes(query.toLowerCase())) ||
+      (contact.email && contact.email.toLowerCase().includes(query.toLowerCase())) ||
+      (contact.phone && contact.phone.toLowerCase().includes(query.toLowerCase()))
     )
   }
 

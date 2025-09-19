@@ -17,7 +17,7 @@
           <RouterLink to="/register" class="nav-link hover:underline text-base">Register</RouterLink>
         </li>
         <li v-if="isAuth" class="flex items-center space-x-2">
-          <span>Bonjour, {{ user?.name }}</span>
+          <span>Bonjour, {{ userName }}</span>
           <button @click="logout" class="nav-link">Logout</button>
         </li>
       </ul>
@@ -34,7 +34,12 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const isAuth = computed(() => authStore.isAuth)
-const user = computed(() => authStore.user)
+
+const userName = computed(() => {
+  if (!authStore.user) return 'Utilisateur'
+
+  return authStore.user.name || authStore.user.username || authStore.user.email || 'Utilisateur'
+})
 
 const logout = () => {
   authStore.logout()
